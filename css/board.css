@@ -1,16 +1,20 @@
+
+
 .game-board {
-  max-width: 1200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+  display: grid;  
+  gap: 15px;
+  width: 100%;
   margin: 0 auto;
+  padding: 0;  
+
+  max-width: min(500px, 55dvh);
+  
+  grid-template-columns: repeat(4, minmax(80px, 1fr));  
 }
 
-.card {
-  min-width: 120px;
-  min-height: 120px;
+.card { 
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border: 2px solid rgb(73, 4, 57);    
   cursor: pointer;
   background-size: cover;
@@ -39,6 +43,20 @@
   background-image: var(--card-front-img);
   cursor: default; 
 }
+
+@media (width <= 600px) {
+  .game-board {    
+    grid-template-columns: repeat(4, minmax(80px, 1fr));
+  }
+}
+
+@media (width <= 420px) {
+  .game-board {    
+    grid-template-columns: repeat(4, minmax(60px, 1fr));
+  }
+}
+
+
 
 
 
