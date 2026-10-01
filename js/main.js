@@ -1,28 +1,39 @@
-console.log('hello');
-import { el } from './utils.js';
+import { createDOMElement } from './utils.js';
+import { GameManager } from './GameManager.js';
 
 function initLayout() {
   // 1. Хедер
-  const newGameBtn = el('button', { class: 'btn btn-new-game' }, 'Новая игра');
-  const leaderboardBtn = el('button', { class: 'btn btn-leaderboard' }, 'Таблица лидеров');
-  const headerContainer = el('div', { class: 'header__container' }, newGameBtn, leaderboardBtn);
-  const header = el('header', { class: 'header' }, headerContainer);
+  const gameTitle = createDOMElement('h1', { class: 'visually-hidden' }, 'Memory Match Game');
+  const newGameBtn = createDOMElement('button', { class: 'btn btn-new-game' }, 'New Game');
+  const leaderboardBtn = createDOMElement('button', { class: 'btn btn-leaderboard' }, 'Liders stats');
+  const headerContainer = createDOMElement('div', { class: 'header__container' }, gameTitle, newGameBtn, leaderboardBtn);
+  const header = createDOMElement('header', { class: 'header' }, headerContainer);
 
   // 2. Мейн (Центр управления игрой)
-  const movesCount = el('span', { id: 'moves-count' }, '0');
-  const pairsCount = el('span', { id: 'pairs-count' }, '0 из 8');
-  const statsPanel = el('div', { class: 'stats-panel' },
-    el('div', { class: 'stat-item' }, 'Ходы: ', movesCount),
-    el('div', { class: 'stat-item' }, 'Найденные пары: ', pairsCount)
+  const movesCount = createDOMElement('span', { id: 'moves-count' }, '0');
+  const pairsCount = createDOMElement('span', { id: 'pairs-count' }, '0 из 8');
+  const statsTitle = createDOMElement('h2', { class: 'visually-hidden' }, 'Current Game Progress');
+  const statsPanel = createDOMElement('section', { class: 'stats-panel', 'aria-label': 'Game Statistics' },
+    statsTitle, 
+    createDOMElement('div', { class: 'stat-item' }, movesCount),
+    createDOMElement('div', { class: 'stat-item' }, pairsCount)
   );
-  const gameBoard = el('div', { class: 'game-board' });
-  const main = el('main', { class: 'main' }, statsPanel, gameBoard);
+
+  // *===
+  const boardTitle = createDOMElement('h2', { class: 'visually-hidden' }, 'Memory Card Grid');
+
+  const gameBoard = createDOMElement('ul', { class: 'game-board' });
+  const boardSection = createDOMElement('section', { class: 'board-section', 'aria-label': 'Puzzle Board' },
+    boardTitle,
+    gameBoard
+  );
+  const main = createDOMElement('main', { class: 'main' }, statsPanel, boardSection);
 
   // 3. Футер
-  const footerContainer = el('div', { class: 'footer__container' }, 'Memory Game © 2026');
-  const footer = el('footer', { class: 'footer' }, footerContainer);
+  const footerContainer = createDOMElement('div', { class: 'footer__container' }, 'Memory Game © 2026');
+  const footer = createDOMElement('footer', { class: 'footer' }, footerContainer);
 
-  // Монтируем в DOM. Порядок добавления в JS теперь не важен — CSS Grid расставит всё по карте!
+  // Монтируем в DOM. 
   document.body.appendChild(header);
   document.body.appendChild(main);
   document.body.appendChild(footer);
@@ -31,5 +42,14 @@ function initLayout() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initLayout();
+  
+  const nodes = initLayout();
+
+  const game = new GameManager(nodes.gameBoard, nodes.movesCount, nodes.pairsCount);
+
+  nodes.newGameBtn.addEventListener('click', () => {
+    game.startGame();
+  });
+
+  game.startGame();
 });

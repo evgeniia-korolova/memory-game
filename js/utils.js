@@ -1,4 +1,4 @@
-export function el(tagName, attributes = {}, ...children) {
+export function createDOMElement(tagName, attributes = {}, ...children) {
   const element = document.createElement(tagName);
 
   // Перебираем атрибуты (классы, дата-атрибуты, события и т.д.)

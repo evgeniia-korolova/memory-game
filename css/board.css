@@ -1,2 +1,44 @@
+.game-board {
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.card {
+  min-width: 120px;
+  min-height: 120px;
+  border: 2px solid rgb(73, 4, 57);    
+  cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: .5rem;
+  box-shadow: 
+    5px 5px 5px 5px #e8b2c7,
+    5px -5px 5px 5px #ebb6cb,
+    -5px -5px 5px 5px #e9b2c7,
+    -5px 5px 5px 5px #f1c1d3;
+  
+  background-image: url('../images/card-cover.jpg');
+  transition: filter 0.2s ease, transform 0.1s ease;
+}
+
+/* Ховер работает ТОЛЬКО если у карточки НЕТ классов .flipped - перевернута и .matched - совпала */
+@media (hover: hover) {
+  .card:not(.flipped):not(.matched):hover {
+    filter: brightness(1.15);
+    transform: scale(1.02); 
+  }
+}
+
+.card.flipped {
+  background-image: var(--card-front-img);
+  cursor: default; 
+}
+
 
 
