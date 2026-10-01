@@ -105,6 +105,8 @@ export class GameManager {
   }
 
   endGame() {
+    this.#saveResult();
+
     const victoryMessage = createDOMElement('p', { class: 'modal-text' }, 
       `Hooray! You found all pairs in ${this.#moves} moves.`
     );  
@@ -137,5 +139,34 @@ export class GameManager {
   set matchedPairs(value) {
     this.#matchedPairs = value;
     this.#pairsElement.textContent = `Pairs: ${value} of 8`;
+  }
+
+  #saveResult() {    
+    const today = Temporal.Now.plainDateISO();
+    const day = String(today.day).padStart(2, '0');
+    const month = String(today.month).padStart(2, '0');
+    const year = today.year;
+    const formattedDate = `${day}.${month}.${year}`;  
+    
+    const rawData = localStorage.getItem('memory_leaderboard');
+    const leaderboard = rawData ? JSON.parse(rawData) : [];
+  
+    leaderboard.push({
+      moves: this.#moves,
+      date: formattedDate,
+      timestamp: Temporal.Now.instant().epochMilliseconds
+    });  
+    
+    leaderboard.sort((a, b) => {
+      if (a.moves !== b.moves) {
+        return a.moves - b.moves;
+      }
+      return a.timestamp - b.timestamp;
+    });
+  
+    
+    const top10 = leaderboard.slice(0, 10);  
+    
+    localStorage.setItem('memory_leaderboard', JSON.stringify(top10));
   }
 }
