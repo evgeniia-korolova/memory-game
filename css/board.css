@@ -7,7 +7,7 @@
   margin: 0 auto;
   padding: 0;  
 
-  max-width: min(500px, 55dvh);
+  max-width: min(540px, 60dvh);
   
   grid-template-columns: repeat(4, minmax(80px, 1fr));  
 }

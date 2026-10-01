@@ -1,0 +1,46 @@
+.modal-dialog {  
+  margin: auto;   
+  width: 90%;
+  max-width: 450px;
+  padding: 30px;  
+  
+  border: 2px solid rgb(73, 4, 57);
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);  
+  outline: none;
+}
+
+
+.modal-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);  
+  backdrop-filter: blur(4px); 
+}
+
+.modal-dialog h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.modal-text {
+  font-size: 20px;
+  margin-bottom: 24px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-close-modal {
+  background-color: #6c757d;
+}
+
+.btn-close-modal:hover {
+  background-color: #5a6268;
+}

@@ -1,4 +1,6 @@
 import { Deck } from './Deck.js';
+import { createDOMElement } from './utils.js';
+import { openModal } from './Modal.js';
 
 export class GameManager {
   #boardElement;
@@ -80,8 +82,10 @@ export class GameManager {
 
         this.#firstCard = null;
         this.#secondCard = null;
+
+        // TODO: не забыть изменить на 8 после стилизации
         
-        if (this.#matchedPairs === 8) {
+        if (this.#matchedPairs === 1) {
           this.endGame();
         }
       } else {        
@@ -101,8 +105,19 @@ export class GameManager {
   }
 
   endGame() {
-    // TODO: here will be modal
-    console.log(`Victory! Finished in ${this.#moves} moves.`);
+    const victoryMessage = createDOMElement('p', { class: 'modal-text' }, 
+      `Hooray! You found all pairs in ${this.#moves} moves.`
+    );  
+    
+    const playAgainBtn = createDOMElement('button', { 
+      class: 'btn btn-modal-new-game' 
+    }, 'New Game');
+    
+    playAgainBtn.addEventListener('click', () => {
+      this.startGame();
+    });  
+    
+    openModal('Victory!', victoryMessage, [playAgainBtn]);
   }
 
   
