@@ -1,4 +1,7 @@
-
+.stats-panel {
+  display: flex;
+  justify-content: space-around;
+}
 
 .game-board {
   display: grid;  
