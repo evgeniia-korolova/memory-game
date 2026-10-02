@@ -34,6 +34,17 @@
   transition: filter 0.2s ease, transform 0.1s ease;
 }
 
+.card:focus {
+  outline: none;
+}
+
+/* Красивая обводка, которая появится ТОЛЬКО при навигации с клавиатуры */
+.card:focus-visible {
+  outline: 3px solid rgb(73, 4, 57); /* Твой глубокий фиолетовый цвет из рамки */
+  outline-offset: 4px; /* Делаем небольшой зазор между карточкой и рамкой */
+  box-shadow: 0 0 15px #e8b2c7; /* Добавляем легкое неоновое свечение при фокусе */
+}
+
 /* Ховер работает ТОЛЬКО если у карточки НЕТ классов .flipped - перевернута и .matched - совпала */
 @media (hover: hover) {
   .card:not(.flipped):not(.matched):hover {

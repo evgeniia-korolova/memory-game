@@ -35,6 +35,20 @@ export class GameManager {
         this.selectCard(cardInstance);
       }
     });
+
+    this.#boardElement.addEventListener('keydown', (event) => {      
+      if (event.key === 'Enter' || event.key === ' ' || event.code === 'Space') {
+        const cardListItem = event.target.closest('.card');
+        if (!cardListItem) return;
+  
+        const cardInstance = cardListItem.connectedCard;
+        if (cardInstance) {          
+          event.preventDefault(); 
+          
+          this.selectCard(cardInstance);
+        }
+      }
+    });
   }
 
   startGame() {
