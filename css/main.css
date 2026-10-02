@@ -25,6 +25,7 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: center;
+  background: rgb(32, 2, 63);
 }
 
 .main {
